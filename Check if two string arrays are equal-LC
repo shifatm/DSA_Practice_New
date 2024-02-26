@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {
+        string blank = "";
+        int sizeA = word1.size();
+        int sizeB = word2.size();
+        string wordA = "";
+        string wordB = "";
+        for(int i=0; i<sizeA; i++){
+            wordA = wordA + word1[i];
+        }
+        for(int i=0; i<sizeB; i++){
+            wordB = wordB + word2[i];
+        }
+        if(wordA==wordB) return true;
+        else return false;
+    }
+};
+
+======================================================
+class Solution {
+public:
+    bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {
+        string one, two;
+        for (auto word: word1) one += word;
+        for (auto word: word2) two += word;
+        return one == two;
+    }
+};
