@@ -1,0 +1,88 @@
+Question:
+A circular array code of length of n and a key k.
+If k > 0, replace the ith number with the sum of the next k numbers.
+If k < 0, replace the ith number with the sum of the previous k numbers.
+If k == 0, replace the ith number with 0.
+
+Constraints:
+n == code.length
+1 <= n <= 100
+1 <= code[i] <= 100
+-(n - 1) <= k <= n - 1
+
+=====================================================================
+class Solution {
+public:
+    vector<int> decrypt(vector<int>& code, int k) {
+        int n = code.size();
+        vector<int> ans(n);
+        if(k==0){
+            fill(ans.begin(), ans.end(), 0);
+            return ans;
+        }
+        else if(k>0){
+            for(int i=0; i<n; i++){
+                int sum =0;
+                int j=k;
+                while(j>0){
+                    sum = sum + code[(i + j)%n];
+                    j--;
+                }
+                ans[i]=sum;  
+            }
+            return ans;
+        }
+        else{
+            for(int i=0; i<n; i++){
+                int sum =0;
+                int j=abs(k);
+                while(j>0){
+                    sum = sum + code[(n-j+i)%n];
+                    j--;
+                } 
+                ans[i]=sum; 
+            }
+            return ans;
+        }
+        
+    }
+};
+========================================================================================
+class Solution {
+public:
+    vector<int> decrypt(vector<int>& code, int k) {
+        int n=code.size();
+        vector<int>ans(n,0);
+        if(k==0)return ans;
+        for(int i=0;i<n;i++){
+            int j=0;
+            int sum=0;
+            int count=k;
+            if(k>0){
+                j=i+1;
+                while(count>0){
+                    sum+=code[j%n];
+                    count--;
+                    j++;
+                }
+            }
+            else{
+                if(i==0){
+                    j=n-1;
+                }
+                else{
+                    j=i-1;
+                }
+                while(count<0){
+                    sum+=code[j];
+                    count++;
+                    if(j==0)j=n-1;
+                    else j--;
+                }
+            }
+            ans[i]=sum;
+        }
+        return ans;
+        
+    }
+};
