@@ -1,0 +1,41 @@
+Question:
+Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+
+Return the running sum of nums.
+
+=================================================================
+class Solution {
+public:
+    vector<int> runningSum(vector<int>& nums) {
+        vector<int> ans;
+        int n = nums.size();
+        ans.push_back(nums[0]);
+        for(int i=1; i<n; i++){
+            ans.push_back(nums[i]+ans[i-1]);
+        }
+        return ans;
+    }
+};
+==================================================================
+class Solution {
+public:
+    vector<int> runningSum(vector<int>& nums) {
+        vector<int> output;
+        for (vector<int>::iterator iter = nums.begin() + 1; iter != nums.end() + 1; iter++) {
+            output.push_back(std::accumulate(nums.begin(), iter, 0));
+        }
+        return output;
+    }
+};
+===================================================================
+Inplace:
+
+class Solution {
+public:
+    vector<int> runningSum(vector<int>& nums) {
+        for(int i=1;i<nums.size();i++)
+            nums[i]+=nums[i-1];
+            return nums;
+        
+    }
+};
