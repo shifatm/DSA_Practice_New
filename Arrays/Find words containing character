@@ -1,0 +1,17 @@
+Question:
+You are given a 0-indexed array of strings words and a character x.
+Return an array of indices representing the words that contain the character x.
+============================================
+class Solution {
+public:
+    vector<int> findWordsContaining(vector<string>& words, char x) {
+        vector<int> ans;
+        for(int i=0; i< words.size(); i++){
+            int found = words[i].find(x);
+            if(found != string::npos){
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+};
