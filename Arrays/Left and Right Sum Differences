@@ -1,0 +1,32 @@
+Question:
+Given a 0-indexed integer array nums, find a 0-indexed integer array answer where:
+
+answer.length == nums.length.
+answer[i] = |leftSum[i] - rightSum[i]|.
+=====================================================================================
+class Solution {
+public:
+    vector<int> leftRightDifference(vector<int>& nums) {
+        vector<int> ans;
+        int n = nums.size();
+        int sumArray = 0;
+        for(int i = 0; i < n; i++){
+            sumArray += nums[i];
+        }
+        int leftSum = 0;
+        int rightSum = 0;
+        for(int i = 0; i<n; i++){
+            if(i==0){
+                leftSum = 0;
+            }
+            else{
+                leftSum += nums[i-1];
+            }
+
+            rightSum = sumArray - leftSum - nums[i];
+
+            ans.push_back(abs(leftSum-rightSum));
+        }
+        return ans;
+    }
+};
