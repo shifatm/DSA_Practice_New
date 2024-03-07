@@ -1,0 +1,40 @@
+Question:
+You are given an array items, where each items[i] = [typei, colori, namei] describes the type, color, and name of the ith item. You are also given a rule represented by two strings, ruleKey and ruleValue.
+
+The ith item is said to match the rule if one of the following is true:
+
+ruleKey == "type" and ruleValue == type[i].
+ruleKey == "color" and ruleValue == color[i].
+ruleKey == "name" and ruleValue == name[i].
+Return the number of items that match the given rule.
+================================================================
+
+class Solution {
+public:
+    int countMatches(vector<vector<string>>& items, string ruleKey, string ruleValue) {
+
+        int ans = 0;
+        int column;
+        int n = items.size();
+        if(ruleKey == "type") column = 0;
+        else if(ruleKey=="color") column = 1;
+        else column = 2;
+
+        for(int i = 0; i<n; i++){
+            if(items[i][column] == ruleValue)
+            ans += 1;
+        }
+        return ans;
+    }
+};
+====================================================================
+// Time: O(N)
+// Space: O(1)
+class Solution {
+public:
+    int countMatches(vector<vector<string>>& A, string ruleKey, string ruleValue) {
+        int ans = 0, i = ruleKey == "type" ? 0 : (ruleKey == "color" ? 1 : 2);
+        for (auto &a : A) ans += a[i] == ruleValue;
+        return ans;
+    }
+};
