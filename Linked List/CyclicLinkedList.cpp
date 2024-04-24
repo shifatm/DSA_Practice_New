@@ -7,6 +7,9 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+//Why move fast by 2 and slow by 1?
+//So that the distance between fast and slow reduces in each step by 1.
+//If we move fast by let's say 3 steps at once, abd right now the distance
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
