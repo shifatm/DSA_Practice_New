@@ -1,0 +1,47 @@
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+Example 1:
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+
+==================================
+C++ Solution
+
+class Solution {
+public:
+    static bool cmp(pair<int, int>& a, pair<int, int>& b) { 
+        return a.second > b.second; 
+    }
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        map<int, int> mapp;
+        int numsSize = nums.size();
+        for(int i=0; i<numsSize; i++){
+            auto it = mapp.find(nums[i]);
+            if(it==mapp.end()){
+                mapp.insert(pair<int, int> (nums[i], 1));
+            }
+            else{
+                it->second = it->second + 1;
+            }
+        }
+        vector<pair<int, int>> mapVector; 
+        for (auto& it : mapp) { 
+            mapVector.push_back(it);
+        }
+        sort(mapVector.begin(), mapVector.end(), cmp); 
+        vector<int> result;
+        for (auto& it : mapVector) { 
+            if(k>0){
+                result.push_back(it.first);
+                k--;
+            }
+            
+        }
+        return result; 
+    }
+
+};
