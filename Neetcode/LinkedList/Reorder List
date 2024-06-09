@@ -1,0 +1,113 @@
+You are given the head of a singly linked-list. The list can be represented as:
+
+L0 → L1 → … → Ln - 1 → Ln
+Reorder the list to be on the following form:
+
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+==========================
+
+C++ Solution
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(head->next == NULL || head->next->next == NULL) return;
+
+        //Find Mid
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next && fast->next->next){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode* temp = slow->next;
+        slow->next = NULL ;
+
+        //Reverse
+        ListNode* prev = NULL;
+        ListNode* curr = temp;
+        while(curr && curr->next){
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev=curr;
+            curr=next;
+        }
+        curr->next = prev;
+        ListNode* head2 =  curr;
+
+        //Merge
+        ListNode* A = head;
+        while(A && A->next){
+            ListNode* tmpA = A->next;
+            A->next = head2;
+            head2 = head2->next;
+            A->next->next = tmpA;
+            A = A->next->next;
+        }
+        A->next = head2;
+    }
+};
+
+========================
+JAVA Solution
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head == null || head.next == null || head.next.next == null) return;
+
+        //find mid
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode temp = slow.next;
+        slow.next = null;
+
+
+        //reverse
+        ListNode prev = null;
+        ListNode curr = temp;
+        while(curr != null && curr.next != null){
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev= curr;
+            curr= next;
+        }
+        curr.next = prev;
+        ListNode head2 = curr;
+
+        // merge
+        ListNode A = head;
+        while(A != null && A.next != null){
+            ListNode tmpA = A.next;
+            A.next = head2;
+            head2 = head2.next;
+            A.next.next = tmpA;
+            A = A.next.next;
+        }
+        A.next = head2;
+    }
+}
+
