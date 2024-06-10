@@ -1,0 +1,62 @@
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+================
+C++ Solution
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(head == NULL) return head;
+        int size = 1;
+        ListNode* tmp = head;
+        while(tmp->next){
+            tmp = tmp->next;
+            size+=1;
+        }
+
+        //if the node to br deleted from end doesn't exist
+        if(size < n) return NULL;
+
+        //if the only node needs to be deleted
+        if(size == 1 && n == 1) return NULL;
+
+        //if head needs to be deleted
+        if(size-n == 0){
+            ListNode* t1 = head;
+            head = head->next;
+            delete(t1);
+            return head;
+        }
+
+        ListNode* start = head;
+        for(int i = 1; i<size-n; i++){
+            start = start->next;
+        }
+        ListNode* tobeDeleted = start->next;
+
+        //if the last node needs to be deleted
+        if(n==1){
+            start->next = NULL;
+            delete(tobeDeleted);
+            return head;
+        }
+
+        //all other cases
+        start->next = tobeDeleted->next;
+        delete(tobeDeleted);
+        return head;
+    }
+};
+
+==========================
+JAVA Solution
+
