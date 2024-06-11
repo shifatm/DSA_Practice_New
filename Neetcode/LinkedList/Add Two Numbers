@@ -1,0 +1,55 @@
+You are given two non-empty linked lists representing two non-negative integers. 
+The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+=======================
+C++ Solution
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* temp1 = l1;
+        int i = 1;
+        int number1 = 0;
+        while(temp1){
+            number1 =  number1 + i * temp1->val ;
+            i = i * 10;
+            temp1 = temp1->next;
+        }
+
+        ListNode* temp2 = l2;
+        i = 1;
+        int number2 = 0;
+        while(temp2){
+            number2 += i * temp2->val ;
+            i = i*10;
+            temp2 = temp2->next;
+        }
+
+        int sum = number1 + number2;
+        int digit = sum%10;
+        ListNode* root = new ListNode(digit);
+        ListNode* tmp = root;
+        sum = sum/10;
+        while(sum>0){
+            int x = sum%10;
+            ListNode* newNode = new ListNode(x);
+            tmp->next = newNode;
+            tmp = tmp->next;
+            sum=sum/10;
+        }
+
+        return root;
+    }
+};
