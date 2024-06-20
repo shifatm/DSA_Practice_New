@@ -34,3 +34,33 @@ class Solution {
         return result;
     }
 }
+
+==========================
+JAVA Solution
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        int n = strs.size();
+        vector<vector<string>> result;
+
+        if(n==0){
+            result.push_back(strs);
+            return result;
+        }
+
+        map<string,vector<string>> mapp;
+        
+        for (string s : strs) {
+            string ss = s;
+            sort(begin(ss), end(ss));
+            mapp[ss].push_back(s);
+        }
+
+        for (auto x : mapp) {
+            result.push_back(x.second);
+        }
+
+        return result;
+    }
+};
