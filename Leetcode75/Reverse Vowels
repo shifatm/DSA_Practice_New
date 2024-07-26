@@ -1,0 +1,29 @@
+Given a string s, reverse only all the vowels in the string and return it.
+
+The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+
+=====================
+C++ SOLUTION
+
+class Solution {
+public:
+    bool checkVowel(char c){
+        if(c =='a' || c=='e' || c=='i' || c=='o' || c=='u'||c =='A' || c=='E' || c=='I' || c=='O' ||  c=='U') return 1;
+    else return 0;
+    }
+    string reverseVowels(string s) {
+
+        int i = 0, j = s.length()-1;
+        while(i<j){
+            if(checkVowel(s[i]) && checkVowel(s[j])) swap(s[i++], s[j--]);
+            else if(!checkVowel(s[i]) && checkVowel(s[j])) i++;
+            else if(checkVowel(s[i]) && !checkVowel(s[j])) j--;
+            else {
+                i++;
+                j--;
+            }
+
+        }
+        return s;
+        } 
+};
