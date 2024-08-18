@@ -1,0 +1,67 @@
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums 
+except nums[i].
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation.
+
+=======================
+C++ Solution
+Create a prefix and suffix array. prefix array is the preduct of all the elements occuring before that element and 
+suffix array is the product of all the elements occuring after that element.
+
+TC: O(N), SC: O(2N)
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        int prefix[n], suffix[n];
+        prefix[0] = 1;
+        for(int i = 1; i<n; i++){
+            prefix[i] = prefix[i-1] * nums[i-1];
+        }
+        suffix[n-1] = 1;
+        for(int i = n-2 ;i >=0; i--){
+            suffix[i] = suffix[i+1] * nums[i+1];
+        } 
+        vector<int> result;
+        for(int i=0; i<n; i++){
+            result.push_back(prefix[i] * suffix[i]);
+        }
+        return result;
+    }
+};
+======================================
+
+C++ Solution
+Start by making prefix(here we are calling it prod) = 1. While iterating the array, put answer[0] = prod and multiply prod with nums[0].
+This will give us the prefix array.
+
+In the next pass, again start with suffix(here we are calling it prod) = 1. Make changes in the prefix array only by multiplying suffix
+of an element at position i with the prefix we calculated.
+
+TC: O(N) and SC:O(1) [result array is not included in the SC]
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+
+        vector<int> answer(nums.size());
+        // prefix-product front
+        int prod = 1;
+        for (int i = 0; i < nums.size(); ++i) {
+            answer[i] = prod;
+            prod = prod * nums[i];
+        }
+
+        // prefix-product back
+        prod = 1;
+        for (int i = nums.size() - 1; i >= 0; --i) {
+            answer[i] = answer[i] * prod;
+            prod = prod * nums[i];
+        }
+
+        return answer;
+    }
+};
