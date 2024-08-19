@@ -1,0 +1,36 @@
+Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+Note that you must do this in-place without making a copy of the array.
+
+==================
+Brute Force
+
+Create a result vector with the same length as nums. Iterate nums and copy non zero values in result. Fill the remaining places with zero.
+
+TC: O(N), SC: O(N)
+=====================
+
+C++ Solution
+
+Initialize left and right pointers at 0. Move right pointer until it finds non-zero. At that moment if nums[left] is 0 and nums[right] != 0,
+swap these two. This is required in case we dont have in the right side, e.g: 1,2,3,4,5.
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n = nums.size();
+        if(n==1) return;
+        int left = 0, right = 0;
+        while(left<n-1){
+            right = left+1;
+            while(right < n-1 && nums[right]==0){
+                right++;
+            }
+            if(nums[left] == 0 && nums[right]!=0){
+                swap(nums[left], nums[right]);
+            }
+            
+            left++;
+        } 
+    }
+};
