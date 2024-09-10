@@ -1,0 +1,97 @@
+You are given two non-empty linked lists representing two non-negative integers. 
+The digits are stored in reverse order, and each of their nodes contains a single digit. 
+Add the two numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+===========================
+SOLUTION THAT FAILS FOR LARGER LL 
+Gives runtime errors: Line 18: Char 23: runtime error: signed integer overflow: 1000000000000000000 * 10 cannot be represented in type 'long long' (solution.cpp)
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior solution.cpp:18:23
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        long long int cnt = 1;
+        long long int s1 = 0;
+        while(l1 != NULL){
+            s1 = s1 + l1->val * cnt;
+            cnt = cnt * 10;
+            l1 = l1->next;
+        }
+
+        long long int s2 = 0;
+        cnt = 1;
+        while(l2 != NULL){
+            s2 = s2 + l2->val * cnt;
+            cnt = cnt * 10;
+            l2 = l2->next;
+        }
+
+        long long int ans = s1 + s2;
+        if(ans == 0){
+            return new ListNode(0);
+        }
+
+        ListNode* result = new ListNode(-1);
+        ListNode* temp = result;
+        while(ans > 0){
+            long long int remainder = ans % 10;
+            temp->next = new ListNode(remainder);
+            ans = ans/10;
+            temp = temp->next;
+        }
+
+        return result->next;
+    }
+};
+===============================
+sumLL initilized with -1. tmp is for traversing the result List.
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* sumLL = new ListNode(-1);
+        ListNode* tmp = sumLL;
+        int carry = 0;
+        while(l1 != NULL || l2 != NULL || carry !=0){
+            int num1 = l1 != NULL? l1->val : 0;
+            int num2 = l2 != NULL? l2->val : 0;
+            int sum = num1 + num2 + carry;
+            ListNode* newNode = new ListNode(sum%10);
+            carry = sum/10;
+            tmp->next = newNode;
+            tmp = tmp->next;
+            l1 = l1 != NULL? l1->next : NULL;
+            l2 = l2 != NULL? l2->next : NULL;
+        }
+
+        ListNode* result = sumLL->next;
+        delete(sumLL);
+        return result;
+    }
+    
+};
+
