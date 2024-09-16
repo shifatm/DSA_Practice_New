@@ -1,0 +1,31 @@
+Given the root of a binary tree, invert the tree, and return its root.
+=======================
+C++ Solution
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root == NULL) return root;
+        TreeNode* rR = root->right;
+        TreeNode* rL = root->left;
+
+        root->right = rL;
+        root->left = rR;
+
+        root->left = invertTree(root->left);
+        root->right = invertTree(root->right);
+        
+        return root;
+    }
+};
