@@ -1,0 +1,68 @@
+Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. 
+You may assume that the majority element always exists in the array.
+=========================
+
+SOLUTION-1
+Sorting: TC - O(NlogN)
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        return nums[n/2];
+    }
+};
+
+========================
+SOLUTION-2
+Uses Hash Map. TC: O(N)
+SC: O(N)
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int numsLength = nums.size();
+        if(numsLength==1) return nums[0];
+        unordered_map<int,int> frequencyMap;
+
+        for(int i = 0; i<numsLength; i++){
+                frequencyMap[nums[i]] ++;
+        }
+
+        numsLength = numsLength/2;
+        for(auto i : frequencyMap){
+            if(i.second > numsLength) return i.first;
+        }
+        return 0;  
+    }
+};
+
+===============================
+Moore's Voting Algorithm
+
+TC: O(N)
+SC: O(1)
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int majorityElement = nums[0];
+        int maxCount = 1;
+        for(int i = 1; i<nums.size(); i++){
+            if(nums[i] == majorityElement){
+                maxCount++;
+            }
+            else{
+                maxCount --;
+                if(maxCount == 0){
+                   majorityElement = nums[i];
+                   maxCount = 1;  
+                }
+            }
+        }
+        return majorityElement;
+    }
+};
+
