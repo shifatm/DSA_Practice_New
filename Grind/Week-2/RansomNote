@@ -13,7 +13,7 @@ public:
         for(int i = 0; i< magazine.size(); i++){
             supersetMap[magazine[i]]++;
         }
-        unordered_map<char, int>:: iterator it = supersetMap.begin();
+    
         for(int i = 0; i< ransomNote.size(); i++){
             if(supersetMap[ransomNote[i]]==0){
                 return false;
