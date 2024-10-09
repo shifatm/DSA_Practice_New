@@ -1,0 +1,26 @@
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and 
+false otherwise.
+
+Each letter in magazine can only be used once in ransomNote.
+======================
+TC: O(N + M)-> M: #chars in ransomNote, N: #chars in manazine
+SC: O(26) -> O(1)
+
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        unordered_map<char, int> supersetMap;
+        for(int i = 0; i< magazine.size(); i++){
+            supersetMap[magazine[i]]++;
+        }
+        unordered_map<char, int>:: iterator it = supersetMap.begin();
+        for(int i = 0; i< ransomNote.size(); i++){
+            if(supersetMap[ransomNote[i]]<=0){
+                return false;
+            }
+            supersetMap[ransomNote[i]]--;
+        }
+        return true;
+    }
+};
+
