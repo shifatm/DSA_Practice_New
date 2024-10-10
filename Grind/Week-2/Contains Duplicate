@@ -1,0 +1,20 @@
+Given an integer array nums, return true if any value appears at least twice in the array, 
+and return false if every element is distinct.
+
+=================
+TC: O(N)
+SC: O(N)
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        int numsLength = nums.size();
+        unordered_map<int, int> frequencyMap;
+        for(int i : nums){
+            frequencyMap[i]++;
+            if(frequencyMap[i] > 1) return true;
+        }
+        return false;
+    }
+};
+
