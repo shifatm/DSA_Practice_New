@@ -1,0 +1,30 @@
+Given a string s which consists of lowercase or uppercase letters, return the length of the longest 
+palindrome
+ that can be built with those letters.
+
+Letters are case sensitive, for example, "Aa" is not considered a palindrome.
+============================
+TC: O(N)
+SC: O(N)
+
+If a letter is occurring even number of times, all of those letters will be part of the palindrome. 
+Of all the letters occurring odd number of times, the letter whose frequency if the largest, will be part of the palindrome.
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        int sLength = s.size();
+        unordered_map<char, int> frequencyMap;
+        int oddCount = 0;
+        for(char c: s){
+            frequencyMap[c]++;
+            if(frequencyMap[c] % 2 ==1){
+                oddCount++;
+            }
+            else{
+                oddCount--;
+            }
+        }
+        if(oddCount > 1) return sLength - oddCount + 1;
+        return sLength;
+    }
+};
