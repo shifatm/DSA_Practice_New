@@ -1,0 +1,41 @@
+TC: O(NlogN), worst case: O(N^2)
+SC: O(1)
+
+Take a pivot element. Goal is to find the correct position of pivot. Elelments lesser than pivot should be on it's left. Elements greater than pivot should be on its
+right.
+
+i will find the 1st element greater than pivot. j will find the first element smaller than pivot. The moment j crosses i, it means all the elements lesser than pivot are 
+collected at one end of the array. That means pivot's true position can be aasigned
+
+class Solution {
+public:
+    int partition(vector<int>& nums, int low, int high){
+
+        int pivot = nums[low];
+        int i = low, j = high;
+        while(i < j){
+            while(pivot >= nums[i] && i <= high-1){
+                i++;
+            }
+            while(pivot < nums[j] && j >= low + 1){
+                j--;
+            }
+            if(i < j) {
+                swap(nums[i], nums[j]);
+            }
+        }
+        swap(nums[low], nums[j]);
+        return j;
+    }
+    void quickSort(vector<int>& nums, int low, int high){
+        if(low < high){
+            int partitionIndex = partition(nums, low, high);
+            quickSort(nums, low, partitionIndex - 1);
+            quickSort(nums, partitionIndex + 1, high);
+        }
+    }
+    vector<int> sortArray(vector<int>& nums) {
+        quickSort(nums, 0, nums.size()-1);
+        return nums;
+    }
+};
