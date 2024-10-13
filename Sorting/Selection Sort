@@ -1,0 +1,34 @@
+TC: O(N)
+SC: O(1)
+From index 0 to n-1, Find minimum element. swap it with the 0th index.
+From index 1 to n-1, find minimum element. swap it with 1st index.
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void selectionSort(int array[], int n){
+	for(int i = 0; i <= n-2; i++){ // last element (n-1) will end up at its correct place
+	int minIndex = i;
+		for(int j = i; j <= n-1; j++){ //since we will be dividing the array into sorted part and unsorted part. at each step iteration will start froom the unsorted index.
+			if(array[j] < array[minIndex]){
+				minIndex = j;
+				break;
+} 	
+		}
+		swap(array[minIndex], array[j]);
+	}
+}
+
+int main(){
+	int n;
+	cin>>n;
+	int array[n];
+	for(int i = 0; i<n; i++){	
+		cin>>array[i];
+}
+selectionSort(array, n);
+for(int i = 0; i<n; i++){	
+		cout<< array[i];
+}
+		
+}
