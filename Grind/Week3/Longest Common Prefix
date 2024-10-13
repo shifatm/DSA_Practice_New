@@ -1,0 +1,31 @@
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+======================
+TC: O(NlogN + M)
+SC: O(N) based on the sorting algorithm used
+NlogN to sort the vector strs. M is the size of the shorter string between str1 and strN. Once we sort the vector, we only need to 
+compare the 1st and the last string. 
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        sort(strs.begin(), strs.end());
+        string str1 = strs[0];
+        string strN = strs[strs.size()-1];
+        int m;
+        str1.size() < strN.size()? m = str1.size() : m = strN.size();
+        string ans = "";
+        for(int i = 0; i < m; i++){
+            if(str1[i] == strN[i]){
+                ans += str1[i];
+            }
+            else{
+                return ans;
+            }
+
+        }
+        return ans;
+    }
+};
