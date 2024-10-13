@@ -1,4 +1,5 @@
-TC: O(N^2)
+TC: O(N^2) - Average and Worst
+TC: O(N) - Best when the array is already sorted.
 SC: O(1)
 
 
