@@ -1,0 +1,35 @@
+Given the head of a singly linked list, return true if it is a 
+palindrome or false otherwise.
+=======================
+If the structure of linked list doesn't help in solving the problem, convert it into list or stack. 
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        vector<int> llVector;
+        ListNode* tmp = head;
+        while(tmp != NULL){
+            llVector.push_back(tmp->val);
+            tmp = tmp->next;
+        }
+        int right = llVector.size()-1;
+        int left = 0;
+        while(left<=right){
+            if(llVector[left] != llVector[right]) return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+};
