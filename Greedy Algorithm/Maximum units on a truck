@@ -1,0 +1,38 @@
+You are assigned to put some amount of boxes onto one truck. You are given a 2D array boxTypes, where boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi]:
+
+numberOfBoxesi is the number of boxes of type i.
+numberOfUnitsPerBoxi is the number of units in each box of the type i.
+You are also given an integer truckSize, which is the maximum number of boxes that can be put on the truck. You can choose any boxes to put on the truck 
+as long as the number of boxes does not exceed truckSize.
+
+========================
+
+In fractional knapsack problems, we first sort the array in descending order of maximum perunit value using a custom comparator. 
+Then we traverse the array until the full amount can be loaded. Then we take the fractional amount.
+
+TC: O(N)
+SC: O(1)
+
+class Solution {
+public:
+    static bool comp(vector<int> &v1, vector<int> &v2){
+        if(v1[1] > v2[1]) return true;
+        return false;
+    }
+    int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
+        sort(boxTypes.begin(), boxTypes.end(), comp);
+        int i = 0;
+        int totalUnits = 0;
+        int size = 0;
+        while(i < boxTypes.size() && truckSize-size > boxTypes[i][0]){
+            size += boxTypes[i][0];
+            totalUnits += boxTypes[i][0] * boxTypes[i][1];
+            i++;
+            
+        }
+        if(i < boxTypes.size() && truckSize-size > 0){
+            totalUnits += (truckSize-size) * boxTypes[i][1];
+        }
+        return totalUnits;
+    }
+};
